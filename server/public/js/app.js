@@ -2,11 +2,17 @@ var socket = io();
 
 function updatePage(name,data){
   let html = "";
-  if(data==1){
-    html = name + " completed the SSH Station!";
+  if(name=="!broadcast"){
+    html = data;
   }
   else{
-    html = name + " completed a station!";
+    switch(data) {
+      case 1:
+          html = name + " completed the SSH Station!";
+          break;
+        default:
+          html = name + " completed a station!";
+      }
   }
       var table = document.getElementById("myTable");
       var row = table.insertRow(0);
@@ -16,5 +22,6 @@ function updatePage(name,data){
       if(x==5){document.getElementById("myTable").deleteRow(x-1);}
 }
   socket.on('update', function (data) {
+    console.log(data);
     updatePage(data.name,data.data);
   });

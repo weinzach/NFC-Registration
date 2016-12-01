@@ -112,6 +112,13 @@ io.on('connection', function(socket){
     manageTag(msg.id,msg.station);
   });
 
+  socket.on('broadcast', function(msg){
+    msg = JSON.parse(msg);
+    console.log("Broadcast Recieved:");
+    let dat = {"name": "!broadcast", "data": msg.display};
+    io.emit('update', dat);
+  });
+
   socket.on('register', function(msg){
     msg = JSON.parse(msg);
     console.log("Registration Recieved:")
